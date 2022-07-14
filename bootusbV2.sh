@@ -80,7 +80,7 @@ sed -i '3,4s/^\/dev/#\/dev/g' fstab.new
 #mv $wrkdv/etc/fstab $wrkdv/etc/fstab.org
 #mv fstab.new $wrkdv/etc/fstab
 rm fstabentry
-echo Go thru the new fstab file in your current directory....then copy to the /etc directory.
+echo Go thru the new fstab file in your current directory....then copy to the /etc/fstab directory.
 echo Lines 3 and 4 are commented by default.
 echo These are the default mountpoint for swap and sda partition.
 initfile=$wrkdv/etc/mkinitrd.conf
@@ -150,3 +150,5 @@ umount $wrkdv
 # delete working dir
 rm -r $wrkdv
 echo All doneded....
+echo When all in one and one is all
+echo You\'ll be a rock and not roll...
