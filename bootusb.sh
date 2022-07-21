@@ -19,6 +19,8 @@
 # Rememner: money is the root of all evil....send $10 for more info!
 
 # check parameters
+echo Boot Slackware from USB drive
+echo Version 2.0.0
 [[ $1 == "" ]] && echo -e "\nUsage:-\n./bootusb.sh /dev/sdX [update]\nWhere X is drive partition to boot.\n[update] is optional to update to new kernel version you downloaded, defaults to 5.15.27\n" && exit 
 blkid $1 2>&1 > /dev/null
 if [ $? -gt 0 ] 
