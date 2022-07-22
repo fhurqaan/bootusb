@@ -16,11 +16,13 @@
 # has been downloaded. You can change the default version to the version you 
 # have installed.
 #
-# Rememner: money is the root of all evil....send $10 for more info!
+# Remember: money is the root of all evil....send $10 for more info!
 
 # check parameters
-echo Boot Slackware from USB drive
-echo Version 2.0.0
+MAX_PART=2
+echo Make your Slackware boot from USB
+echo version 2.0.0
+echo No copyrights, copylefts...or copywrongs
 [[ $1 == "" ]] && echo -e "\nUsage:-\n./bootusb.sh /dev/sdX [update]\nWhere X is drive partition to boot.\n[update] is optional to update to new kernel version you downloaded, defaults to 5.15.27\n" && exit 
 blkid $1 2>&1 > /dev/null
 if [ $? -gt 0 ] 
@@ -41,7 +43,7 @@ case "$2" in
 		exit
 		;;
 esac
-for n in 1 2
+for (( n=1; n<=MAX_PART; n++ ))
 do
 	# set variables
 	ptype=`blkid $1$n | sed 's/.* TYPE=/\l/' | cut -d\" -f2`
