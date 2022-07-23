@@ -43,13 +43,17 @@ case "$2" in
 		exit
 		;;
 esac
-for (( n=1; n<=MAX_PART; n++ ))
+
+# MAX_PART is set to 2, if your have more partitions, increase the 
+# number. I dont have more that 2 parts, so adjust script accordingly.
+for (( n=1; n<=$MAX_PART; n++ ))
 do
+	rtdrv=$1$n
 	# set variables
 	ptype=`blkid $1$n | sed 's/.* TYPE=/\l/' | cut -d\" -f2`
 	if [[ $ptype == "ext4" ]]
 	then
-		rtdrv=$1$n
+		mntdrv=$1$n
 		duuid=`blkid $rtdrv | sed 's/.*: UUID=/\l/'| cut -d\" -f2` 
 		puuid=`blkid $rtdrv | sed 's/.*PARTUUID=/\l/'| cut -d\" -f2` 
 		wrkdv=${1:4}$n
@@ -58,8 +62,6 @@ do
 		swppuuid=`blkid $rtdrv | sed 's/.*PARTUUID=/\l/'| cut -d\" -f2` 
 	fi
 done
-
-echo Making /dev$wrkdv bootable using kernel $kernel
 #
 # check working dir
 if [[ ! -d $wrkdv ]] 
@@ -69,7 +71,7 @@ then
 fi
 
 # mount drive
-mount /$rtdrv /$wrkdv
+mount /$mntdrv /$wrkdv
 
 # Save UUID for boot and swap partition to file
 echo "UUID=$swpuuid	swap	swap	defaults	0	0" > fstabentry 
