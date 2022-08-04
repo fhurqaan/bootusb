@@ -1,8 +1,12 @@
 # bootusb
 
 For Slackware users to make a bootable usb that boots slackware.
-Script intended for my personal use, thought i share it with the those intersted.
-Many assumption on my part espcially running the update option.
-
+Latest version 3...
+  Void of fancy features. 
+  Takes more space on your drive
+  Difficult to mess up setup
+  no know bugs...
+  unknow bugs...still unknown!
+  
 -- 
 Get stoned....drink wet cement!
