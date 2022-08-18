@@ -7,5 +7,7 @@ Script intended for my personal use, thought i share it with the those intersted
 
 -- 
 Get stoned....drink wet cement!
+
 When everything works, the work is complete.
+
 Money is the root of all evil...send $10 for more info!
