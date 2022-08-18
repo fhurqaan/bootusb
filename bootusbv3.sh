@@ -43,7 +43,7 @@ cyan=`echo -e "\e[1;36m"`
 white=`echo -e "\e[1;37m"`
 normal=`echo -e "\e[0m"`
 
-#define function find valid drive type
+#define function find valid drive type and store in array
 menuDrives () {
 	drives=($(df --type=ext{2..5} | awk 'NR>1{print $1}' |  sort))
 	# add abort elenment to array as last item
