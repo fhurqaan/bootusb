@@ -1,24 +1,24 @@
 #!/bin/bash
 #
 # I got the steps to acomplish booting Slackware from usb from
-# https://www.youtube.com/watch?v=ddjw_yPvxNY 
+# https://www.youtube.com/watch?v=ddjw_yPvxNY
 # Lost Expat  youtube.
 # i just dump the script in a file, and automated a few steps
 # so that typing errors won't creep in.
 #
 # Version 2.0
-# Author: Lost Expat 
+# Author: Lost Expat
 # scripted by: Fhurqaan Hamid
 # email: yeah i have one
-# added support for updating kernel 
+# added support for updating kernel
 # the second optional parameter "update" will search for the latest kernel
-# in the /boot directory. No checking is done. I assume that the new version 
-# has been downloaded. You can change the default version to the version you 
+# in the /boot directory. No checking is done. I assume that the new version
+# has been downloaded. You can change the default version to the version you
 # have installed.
 #
 # Remember: money is the root of all evil....send $10 for more info!
 #
-# COPY THIS SCRIPT TO YOUR SLACKWARE BOOT USB, 
+# COPY THIS SCRIPT TO YOUR SLACKWARE BOOT USB,
 # AFTER INSTALL SLACKWARE, DO NOT EXIT THE INSTALLER
 # RUN THIS IS SCRIPT
 #
@@ -31,11 +31,11 @@ echo version 2.0.0
 echo No copyrights, copylefts...or copywrongs
 
 # check parameters
-[[ $1 == "" ]] && echo -e "\nUsage:-\n./bootusb.sh /dev/sdX [update]\nWhere X is drive partition to boot.\n[update] is optional to update to new kernel version you downloaded, defaults to 5.15.27\n" && exit 
+[[ $1 == "" ]] && echo -e "\nUsage:-\n./bootusb.sh /dev/sdX [update]\nWhere X is drive partition to boot.\n[update] is optional to update to new kernel version you downloaded, defaults to 5.15.27\n" && exit
 
 # Check if the drive specified is found
 blkid $1 2>&1 > /dev/null
-if [ $? -gt 0 ] 
+if [ $? -gt 0 ]
 then
 	echo $1 not found..Please enter valid drive
 	exit
@@ -56,7 +56,7 @@ case "$2" in
 		;;
 esac
 
-# MAX_PART is set to 2, if your have more partitions, increase the 
+# MAX_PART is set to 2, if your have more partitions, increase the
 # number. I dont have more that 2 parts, so adjust script accordingly.
 # Search for ext4,swap and their UUIDs
 for (( n=1; n<=$MAX_PART; n++ ))
@@ -67,20 +67,20 @@ do
 	case $ptype in
 		ext4)
 			mntdrv=$1$n
-			duuid=`blkid $rtdrv | sed 's/.*: UUID=/\l/'| cut -d\" -f2` 
-			puuid=`blkid $rtdrv | sed 's/.*PARTUUID=/\l/'| cut -d\" -f2` 
+			duuid=`blkid $rtdrv | sed 's/.*: UUID=/\l/'| cut -d\" -f2`
+			puuid=`blkid $rtdrv | sed 's/.*PARTUUID=/\l/'| cut -d\" -f2`
 			wrkdv=${1:4}$n
 			;;
 		swap)
-			swpuuid=`blkid $rtdrv | sed 's/.*: UUID=/\l/'| cut -d\" -f2` 
-			swppuuid=`blkid $rtdrv | sed 's/.*PARTUUID=/\l/'| cut -d\" -f2` 
+			swpuuid=`blkid $rtdrv | sed 's/.*: UUID=/\l/'| cut -d\" -f2`
+			swppuuid=`blkid $rtdrv | sed 's/.*PARTUUID=/\l/'| cut -d\" -f2`
 			;;
 		*) ;;
 	esac
 done
 
 # check working dir
-if [[ ! -d $wrkdv ]] 
+if [[ ! -d $wrkdv ]]
 then
 	echo $wrkdv...not found, creating.
 	mkdir $wrkdv
@@ -90,9 +90,9 @@ fi
 mount $mntdrv $wrkdv
 
 # Save UUID for boot and swap partition to file
-echo "UUID=$swpuuid	swap	swap	defaults	0	0" > fstab.tmp 
+echo "UUID=$swpuuid	swap	swap	defaults	0	0" > fstab.tmp
 echo "UUID=$duuid	/	ext4	defaults	1	1" >> fstab.tmp 
-echo Creating fstab.new file in $wrkdv/etc directory  
+echo Creating fstab.tmp file in $wrkdv/etc directory
 
 # join the file to the fstab file
 cat fstab.tmp $wrkdv/etc/fstab > fstab.new
@@ -162,7 +162,7 @@ rm -f $wrkdv/boot/boot.*
 rm -f $wrkdv/boot/map
 chroot $wrkdv lilo
 
-# unmount 
+# unmount
 umount $wrkdv/proc
 umount $wrkdv/sys
 umount $wrkdv/dev
