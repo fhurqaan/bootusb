@@ -6,6 +6,7 @@ A fully running protable slackware.
 Script intended for my personal use, thought i share it with the those intersted.
 
 -- 
+
 Get stoned....drink wet cement!
 
 When everything works, the work is complete.
